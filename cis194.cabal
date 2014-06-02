@@ -1,0 +1,31 @@
+Name:          cis194
+Version:       0.0.0
+Cabal-Version: >= 1.10
+License:       BSD3
+License-File:  LICENSE
+Author:        Andrew Bennett <potatosaladx@gmail.com>
+Maintainer:    Andrew Bennett <potatosaladx@gmail.com>
+-- Homepage:
+-- Category:
+-- Synopsis:
+Build-Type:    Simple
+
+Library
+  Build-Depends:    base >= 4.2 && < 5, containers
+  Default-Language: Haskell2010
+  Exposed-modules:  Cis194.Week1, Cis194.Week2.LogAnalysis
+  GHC-Options:      -Wall
+  HS-Source-Dirs:   src
+    Test.HUnit.Base, Test.HUnit.Lang, Test.HUnit.Terminal,
+    Test.HUnit.Text, Test.HUnit
+
+Test-Suite spec
+  Build-Depends:    base, hspec, containers, QuickCheck
+  Default-Language: Haskell2010
+  Ghc-Options:      -Wall
+  Hs-Source-Dirs:   src, test
+  Main-Is:          Spec.hs
+  Type:             exitcode-stdio-1.0
+
+Source-Repository head
+  Type: git
