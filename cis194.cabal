@@ -13,11 +13,10 @@ Build-Type:    Simple
 Library
   Build-Depends:    base >= 4.2 && < 5, containers
   Default-Language: Haskell2010
-  Exposed-modules:  Cis194.Week1, Cis194.Week2.LogAnalysis
+  Exposed-modules:  Cis194.Week1, Cis194.Week2.LogAnalysis,
+    Cis194.Week3.Golf
   GHC-Options:      -Wall
   HS-Source-Dirs:   src
-    Test.HUnit.Base, Test.HUnit.Lang, Test.HUnit.Terminal,
-    Test.HUnit.Text, Test.HUnit
 
 Test-Suite spec
   Build-Depends:    base, hspec, containers, QuickCheck

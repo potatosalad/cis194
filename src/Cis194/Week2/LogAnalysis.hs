@@ -2,6 +2,8 @@ module Cis194.Week2.LogAnalysis where
 
 import Cis194.Week2.Log
 
+-- http://www.seas.upenn.edu/~cis194/hw/02-ADTs.pdf
+
 -- Exercise 1
 
 parseMessage :: String -> LogMessage
