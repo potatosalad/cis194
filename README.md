@@ -1,5 +1,7 @@
 # cis194
 
+[![Build Status](https://travis-ci.org/potatosalad/cis194.svg)](https://travis-ci.org/potatosalad/cis194)
+
 Homework solutions, tests, and notes from the University of Pennsylvania's [CIS 194](http://www.seas.upenn.edu/~cis194/lectures.html) class.
 
 Heavily influenced by [coopernurse/cis194](https://github.com/coopernurse/cis194) (tests and original project structure in particular).
