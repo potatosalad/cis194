@@ -26,20 +26,19 @@ localMaxima _ = []
 
 -- Exercise 3: Histogram
 
--- TODO: write my own implementation once I understand this
--- https://github.com/coopernurse/cis194/blob/6fb94ee791932594ae9aa595656158c36e06975b/src/Cis194/Hw/Golf.hs#L33-L55
 histogram :: [Integer] -> String
-histogram = (++"==========\n0123456789\n") . toRows . digitFreqs
+histogram list = (++"==========\n0123456789\n") . occurrenceToRows .
+  countOccurrence 0 . map (\x -> (head x, length x)) . group . sort $ list
 
-digitFreqs :: [Integer] -> [Int]
-digitFreqs l1 = digitFreqs' 0 $ sort l1
-  where digitFreqs' n l2
-          | n == 10 = []
-          | otherwise = case (span (==n) l2) of
-          (left, right) -> length left : digitFreqs' (n+1) right
+countOccurrence :: Integer -> [(Integer, Int)] -> [Int]
+countOccurrence 10 _ = []
+countOccurrence n [] = [0 | _ <- [(n+1)..10]]
+countOccurrence n list@((k, count):xs)
+  | n == k    = count : countOccurrence (n+1) xs
+  | otherwise = 0     : countOccurrence (n+1) list
 
-toRows :: [Int] -> String
-toRows list = case (find (>0) list) of
+occurrenceToRows :: [Int] -> String
+occurrenceToRows list = case (find (>0) list) of
   Nothing -> ""
-  Just _  -> toRows (map (+(-1)) list) ++ (map (mark) list ++ "\n")
-  where mark n = if n > 0 then '*' else ' '
+  Just _  -> occurrenceToRows (map (+(-1)) list) ++ (map (star) list ++ "\n")
+  where star n = if n > 0 then '*' else ' '
