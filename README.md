@@ -1,6 +1,7 @@
 # cis194
 
 [![Build Status](https://travis-ci.org/potatosalad/cis194.svg)](https://travis-ci.org/potatosalad/cis194)
+[![Coverage Status](https://img.shields.io/coveralls/potatosalad/cis194.svg)](https://coveralls.io/r/potatosalad/cis194)
 
 Homework solutions, tests, and notes from the University of Pennsylvania's [CIS 194](http://www.seas.upenn.edu/~cis194/lectures.html) class.
 
