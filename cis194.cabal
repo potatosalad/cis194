@@ -14,7 +14,7 @@ Library
   Build-Depends:    base >= 4.2 && < 5, containers
   Default-Language: Haskell2010
   Exposed-modules:  Cis194.Week1, Cis194.Week2.LogAnalysis,
-    Cis194.Week3.Golf
+    Cis194.Week3.Golf, Cis194.Week4
   GHC-Options:      -Wall
   HS-Source-Dirs:   src
 
