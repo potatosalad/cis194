@@ -9,6 +9,7 @@ main = hspec spec
 
 spec :: Spec
 spec = do
+  -- Exercise 1: Wholemeal programming
   describe "fun1'" $ do
     it "should output the same results as fun1" $ do
       property $ \x xs -> fun1 (x:xs) == fun1' (x:xs)
@@ -18,6 +19,17 @@ spec = do
       fun2 1 `shouldBe` fun2' 1
       fun2 2 `shouldBe` fun2' 2
       fun2 3 `shouldBe` fun2' 3
+
+  -- Exercise 2: Folding with trees
+  describe "foldTree" $ do
+    it "should output a balanced tree when given a unique sorted list" $ do
+      balanceFactor (foldTree "ABCDEFHIJ") `shouldBe` 1
+
+    it "should output trees of the same height regardless of input sort order" $ do
+      height (foldTree "ABCDEFHIJ") `shouldBe` height (foldTree "JIHFEDCBA")
+
+    it "should output a balanced tree when given an unsorted list" $ do
+      balanceFactor (foldTree "ZAXWBQPSLKXZA") `shouldBe` 1
 
   --describe "map'" $ do
   --  it "should behave as map does" $ do
