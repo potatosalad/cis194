@@ -75,3 +75,8 @@ avlBalance t@(Node _ l k r)
 avlBalanceFactor :: Tree a -> Integer
 avlBalanceFactor Leaf = 0
 avlBalanceFactor (Node _ l _ r) = avlHeight l - avlHeight r
+
+-- Exercise 3: More folds!
+
+xor :: [Bool] -> Bool
+xor = foldr (/=) False
