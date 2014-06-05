@@ -86,3 +86,18 @@ map' f = foldr (\x y -> f(x):y) []
 
 myFoldl :: (a -> b -> a) -> a -> [b] -> a
 myFoldl f a bs = foldr (\b g x -> g (f x b)) id bs a
+
+-- Exercise 4: Finding primes
+
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n
+  | n < 0 = []
+  | otherwise = 2:[2 * x + 1 | x <- [1..n], notElem x exclusions]
+    where exclusions = sieveSundaramExclusions n
+
+sieveSundaramExclusions :: Integer -> [Integer]
+sieveSundaramExclusions n = [i + j + 2 * i * j |
+  let n' = fromIntegral n,
+  i <- [1..floor ((sqrt :: Double -> Double) (n' / 2))],
+  let i' = fromIntegral i,
+  j <- [i..floor ((n' - i') / (2 * i' + 1))]]
