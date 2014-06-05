@@ -31,15 +31,16 @@ spec = do
     it "should output a balanced tree when given an unsorted list" $ do
       balanceFactor (foldTree "ZAXWBQPSLKXZA") `shouldBe` 1
 
+  -- Exercise 3: More folds!
   describe "xor" $ do
     it "behave as described" $ do
       xor [False, True, False] `shouldBe` True
       xor [False, True, False, False, True] `shouldBe` False
 
-  --describe "map'" $ do
-  --  it "should behave as map does" $ do
-  --    map (id) [1,2,3] `shouldBe` map' (id) [1,2,3]
-  --    map (`div`3) [1,2,3] `shouldBe` map' (`div`3) [1,2,3]
+  describe "map'" $ do
+    it "should behave as map does" $ do
+      map (id) [1,2,3] `shouldBe` map' (id) [1,2,3]
+      map (`div`3) [1,2,3] `shouldBe` map' (`div`3) [1,2,3]
 
   --describe "sieveSundaram" $ do
   --  it "returns no primes for n < 2" $ do
