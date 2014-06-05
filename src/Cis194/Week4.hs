@@ -83,3 +83,6 @@ xor = foldr (/=) False
 
 map' :: (a -> b) -> [a] -> [b]
 map' f = foldr (\x y -> f(x):y) []
+
+myFoldl :: (a -> b -> a) -> a -> [b] -> a
+myFoldl f a bs = foldr (\b g x -> g (f x b)) id bs a

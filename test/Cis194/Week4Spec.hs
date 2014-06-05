@@ -42,6 +42,10 @@ spec = do
       map (id) [1,2,3] `shouldBe` map' (id) [1,2,3]
       map (`div`3) [1,2,3] `shouldBe` map' (`div`3) [1,2,3]
 
+  describe "myFoldl" $ do
+    it "should behave as foldl does" $ do
+      foldl (\a b -> b:a) [] [1,2,3] `shouldBe` myFoldl (\a b -> b:a) [] [1,2,3]
+
   --describe "sieveSundaram" $ do
   --  it "returns no primes for n < 2" $ do
   --    sieveSundaram (-1) `shouldBe` []
