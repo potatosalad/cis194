@@ -3,6 +3,7 @@ module Cis194.Week5.CalcSpec (main, spec) where
 import Test.Hspec
 import Cis194.Week5.Calc
 import Cis194.Week5.ExprT
+import qualified Cis194.Week5.StackVM as StackVM
 
 main :: IO ()
 main = hspec spec
@@ -83,3 +84,11 @@ spec = do
 
     it "should be Just (Mod7 0) for Mod7" $ do
       (testExp :: Maybe Mod7) `shouldBe` (Just (Mod7 0))
+
+  describe "compile" $ do
+    it "should be Just [PushI 3,PushI (-4),Mul,PushI 5,Add] for (3 * -4) + 5" $ do
+      (compile "(3 * -4) + 5") `shouldBe` (Just [StackVM.PushI 3,StackVM.PushI (-4),StackVM.Mul,StackVM.PushI 5,StackVM.Add])
+
+  describe "testCompile" $ do
+    it "should be Just (Right (IVal (-7))) for (3 * -4) + 5" $ do
+      (testCompile "(3 * -4) + 5") `shouldBe` (Just (Right (StackVM.IVal (-7))))

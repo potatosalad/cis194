@@ -1,6 +1,8 @@
+{-# LANGUAGE FlexibleInstances, TypeSynonymInstances #-}
 module Cis194.Week5.Calc where
 import Cis194.Week5.ExprT
 import Cis194.Week5.Parser
+import qualified Cis194.Week5.StackVM as StackVM
 
 -- Exercise 1
 eval :: ExprT -> Integer
@@ -65,3 +67,21 @@ instance Expr Mod7 where
 
 testExp :: Expr a => Maybe a
 testExp = parseExp lit add mul "(3 * -4) + 5"
+
+-- Exercise 5
+instance Expr StackVM.Program where
+  lit x   = [StackVM.PushI x]
+  add x y = x ++ y ++ [StackVM.Add]
+  mul x y = x ++ y ++ [StackVM.Mul]
+
+compile :: String -> Maybe StackVM.Program
+compile s = case (parseExp lit add mul s) of
+  Nothing -> Nothing
+  (Just program) -> Just program
+
+testCompile :: String -> Maybe (Either String StackVM.StackVal)
+testCompile s = case (compile s) of
+  Nothing -> Nothing
+  (Just program) -> Just (StackVM.stackVM program)
+
+-- Exercise 6

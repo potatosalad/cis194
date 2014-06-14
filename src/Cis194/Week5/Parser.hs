@@ -5,7 +5,7 @@ module Cis194.Week5.Parser (parseExp) where
 import Control.Applicative hiding (Const)
 import Control.Arrow
 import Data.Char
-import Data.Monoid
+--import Data.Monoid
 import Data.List (foldl')
 
 -- Building block of a computation with some state of type @s@
@@ -41,20 +41,20 @@ type Parser a = State String a
 digit :: Parser Integer
 digit = State $ parseDigit
     where parseDigit [] = Nothing
-          parseDigit s@(c:cs)
+          parseDigit (c:cs)
               | isDigit c = Just (fromIntegral $ digitToInt c, cs)
               | otherwise = Nothing
 
 -- Parse an integer. The integer may be prefixed with a negative sign.
 num :: Parser Integer
-num = maybe id (const negate) <$> optional (char '-') <*> (toInteger <$> some digit)
-    where toInteger = foldl' ((+) . (* 10)) 0
+num = maybe id (const negate) <$> optional (char '-') <*> (toIntegerCustom <$> some digit)
+    where toIntegerCustom = foldl' ((+) . (* 10)) 0
 
 -- Parse a single white space character.
 space :: Parser ()
 space = State $ parseSpace
     where parseSpace [] = Nothing
-          parseSpace s@(c:cs)
+          parseSpace (c:cs)
               | isSpace c = Just ((), cs)
               | otherwise = Nothing
 
@@ -84,7 +84,7 @@ eof = State parseEof
 parseExpr :: Parser Expr
 parseExpr = eatSpace *>
             ((buildOp <$> nonOp <*> (eatSpace *> op) <*> parseExpr) <|> nonOp)
-    where buildOp x op y = x `op` y
+    where buildOp x oper y = x `oper` y
           nonOp = char '(' *> parseExpr <* char ')' <|> Const <$> num
 
 -- Run a parser over a 'String' returning the parsed value and the
