@@ -3,6 +3,7 @@ module Cis194.Week5.Calc where
 import Cis194.Week5.ExprT
 import Cis194.Week5.Parser
 import qualified Cis194.Week5.StackVM as StackVM
+import qualified Data.Map as M
 
 -- Exercise 1
 eval :: ExprT -> Integer
@@ -85,3 +86,40 @@ testCompile s = case (compile s) of
   (Just program) -> Just (StackVM.stackVM program)
 
 -- Exercise 6
+class HasVars a where
+  var :: String -> a
+
+data VarExprT = VLit Integer
+              | VAdd VarExprT VarExprT
+              | VMul VarExprT VarExprT
+              | VVar String
+              deriving (Eq, Show)
+
+instance HasVars VarExprT where
+  var s = VVar s
+
+instance Expr VarExprT where
+  lit x   = VLit x
+  add x y = VAdd x y
+  mul x y = VMul x y
+
+instance HasVars (M.Map String Integer -> Maybe Integer) where
+  var s = M.lookup s
+
+instance Expr (M.Map String Integer -> Maybe Integer) where
+  lit x   = \_ -> Just x
+  add x y = \z -> case (x z) of
+    Nothing -> Nothing
+    (Just x') -> case (y z) of
+      Nothing -> Nothing
+      (Just y') -> Just (x' + y')
+  mul x y = \z -> case (x z) of
+    Nothing -> Nothing
+    (Just x') -> case (y z) of
+      Nothing -> Nothing
+      (Just y') -> Just (x' * y')
+
+withVars :: [(String, Integer)]
+         -> (M.Map String Integer -> Maybe Integer)
+         -> Maybe Integer
+withVars vs expr = expr $ M.fromList vs

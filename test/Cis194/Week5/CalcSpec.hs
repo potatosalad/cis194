@@ -92,3 +92,13 @@ spec = do
   describe "testCompile" $ do
     it "should be Just (Right (IVal (-7))) for (3 * -4) + 5" $ do
       (testCompile "(3 * -4) + 5") `shouldBe` (Just (Right (StackVM.IVal (-7))))
+
+  describe "withVars" $ do
+    it "should be Just 9 for expression" $ do
+      (withVars [("x", 6)] $ add (lit 3) (var "x")) `shouldBe` (Just 9)
+
+    it "should be Nothing for expression" $ do
+      (withVars [("x", 6)] $ add (lit 3) (var "y")) `shouldBe` Nothing
+
+    it "should be Just 54 for expression" $ do
+      (withVars [("x", 6), ("y", 3)] $ mul (var "x") (add (var "y") (var "x"))) `shouldBe` (Just 54)
