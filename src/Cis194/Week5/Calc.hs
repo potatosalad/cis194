@@ -13,3 +13,9 @@ evalStr :: String -> Maybe Integer
 evalStr string = case (parseExp Lit Add Mul string) of
   Nothing -> Nothing
   (Just expression) -> Just (eval expression)
+
+-- Exercise 3
+class Expr a where
+  lit :: Integer -> a
+  add :: a -> a -> a
+  mul :: a -> a -> a
